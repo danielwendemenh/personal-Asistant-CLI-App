@@ -1,0 +1,4 @@
+cd /Temp/ 
+tar -xvzf Albarius.tar.gz
+cp -rf Albarius /opt/
+pm2 restart all
