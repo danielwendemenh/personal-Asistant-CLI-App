@@ -6,5 +6,5 @@ if "%1"=="install" (
     call uninstall.bat
 ) else (
     
-    lua C:\Users\Daniel\Desktop\personal\bacth_files\personalAssistant.lua %*
+    lua C:\Users\Daniel\Desktop\personal\personalAsistantCLI\personalAssistant.lua %*
 )
