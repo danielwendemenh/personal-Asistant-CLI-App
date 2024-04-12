@@ -1,6 +1,6 @@
 local command = arg[1]:lower()
 local args = {...}
- 
+ print(unpack(args))
 if string.lower(command) == "--help" then
     print("Supported commands:")
     print("Watch - Monitors files for changes and executes a command when a change is detected.")
@@ -32,7 +32,7 @@ end
 local scriptPath = debug.getinfo(1, "S").source:sub(2)
     
 
-local scriptDirectory = scriptPath:match("(.*[\\/])")
+local scriptDirectory = scriptPath:match("(.*[//])")
 
 local commandFilePath
 if string.lower(command) == "-v" then

@@ -22,6 +22,6 @@ if not COLLECTION_NAME or #COLLECTION_NAME == 0 then
 end
 
 local mongoCommand = 'mongo "' .. MONGO_URI .. '" --eval "var result = db[\'' .. COLLECTION_NAME .. '\'].find(' .. conditionStr .. '); if (result) { printjson(result.toArray()); } else { print(\'No matching document found.\'); }"'
-local escapedMongoCommand = '"' .. mongoCommand:gsub('"', '\\"') .. '"'
+local escapedMongoCommand = '"' .. mongoCommand:gsub('"', '/"') .. '"'
 os.execute(escapedMongoCommand)
 os.execute(mongoCommand)

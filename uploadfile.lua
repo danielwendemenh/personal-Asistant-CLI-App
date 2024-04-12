@@ -4,8 +4,8 @@ os.execute('ls')
 io.write('folder to upload: ')
 local folderName = io.read()
 local tarFileName = folderName .. ".tar.gz"
-local filePath = currentDir .. "\\".. folderName..".tar.gz"
-local folderPath = currentDir .. "\\" .. folderName
+local filePath = currentDir .. "/".. folderName..".tar.gz"
+local folderPath = currentDir .. "/" .. folderName
 
 -- Check if the folder exists
 local attributes = lfs.attributes(folderPath)

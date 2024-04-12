@@ -1,10 +1,10 @@
-local mongoBinPath = ".\\mongodb-database-tools-windows/bin"
-local mongoDumpPath = "\\mongodump.exe"
-local mongoRetorePath = "\\mongorestore.exe"
+local mongoBinPath = "./mongodb-database-tools-windows/bin"
+local mongoDumpPath = "/mongodump.exe"
+local mongoRetorePath = "/mongorestore.exe"
 local args ={...}
 local scriptPath = debug.getinfo(1, "S").source:sub(2)
-local scriptDirectory = scriptPath:match("(.*[\\/])")
-local backupsFolder = scriptDirectory.. "DB_backups" ..'\\'
+local scriptDirectory = scriptPath:match("(.*[//])")
+local backupsFolder = scriptDirectory.. "DB_backups" ..'/'
 local lfs = require("lfs")
 local action = args[2]
 local backup_name = args[3]
@@ -56,7 +56,7 @@ if action and action == 'backup' then
     if not backup_name then
     backup_name = backupsFolder .. os.date("%Y-%m-%d-%H-%M-%S")
 else
-    backup_name = backupsFolder  ..'\\' .. backup_name
+    backup_name = backupsFolder  ..'/' .. backup_name
 end
     local commandTemp = scriptDirectory .. mongoBinPath..mongoDumpPath
     runMongoDBCommand(commandTemp)
