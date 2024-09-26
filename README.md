@@ -98,7 +98,7 @@ pa install
   - If backup name not is provided the date will be the default
 
   ```
-  pa mongo <restore/backup> <backup_name>
+  pa mongosh  <restore/backup> <backup_name>
 
   ```
 
@@ -138,7 +138,7 @@ pa install
 - \`pa open <projectName>\`: Open a project in vscode
 - \`pa get <collectionName> <field> <value>\`: Retrieve data from a collection
 - \`pa setvisible <true/false>\`: Set visibility status for devices
-- \`pa mongo <restore/backup> <backup_name>\`: Perform MongoDB backup or restore
+- \`pa mongosh <restore/backup> <backup_name>\`: Perform MongoDB backup or restore
 - \`pa drop <collectionName>\`: Drop a collection
 - \`pa goto <folderPath>\`: Navigate to a specific folder path and open explorer
 - \`pa chillax\`: Enter relax mode (close all work-related apps)

@@ -1,5 +1,4 @@
 local json = require("json")
--- local MONGO_URI = "mongodb://10.100.40.50:27017/AlbariusDB"
 local MONGO_URI = "mongodb://localhost:27017/AlbariusDB"
 local COMMAND = arg[1] 
 local COLLECTION_NAME = arg[2]
@@ -21,7 +20,7 @@ if not COLLECTION_NAME or #COLLECTION_NAME == 0 then
         COLLECTION_NAME = 'devices'
 end
 
-local mongoCommand = 'mongo "' .. MONGO_URI .. '" --eval "var result = db[\'' .. COLLECTION_NAME .. '\'].find(' .. conditionStr .. '); if (result) { printjson(result.toArray()); } else { print(\'No matching document found.\'); }"'
+local mongoCommand = 'mongosh  "' .. MONGO_URI .. '" --eval "var result = db[\'' .. COLLECTION_NAME .. '\'].find(' .. conditionStr .. '); if (result) { printjson(result.toArray()); } else { print(\'No matching document found.\'); }"'
 local escapedMongoCommand = '"' .. mongoCommand:gsub('"', '\\"') .. '"'
 os.execute(escapedMongoCommand)
 os.execute(mongoCommand)

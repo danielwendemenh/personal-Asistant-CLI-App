@@ -10,6 +10,7 @@ local keyToRetrieve = "projects-paths"
 local function loadConfig()
 	local absolutePath = arg[0]:match("^(.*[\\/])") or ""
 	local settings = io.open(absolutePath .. "\\" .. settingsFile, "r")
+	print(absolutePath)
 	if settings then
 		local settings_content = settings:read("*a")
 		local settingsDecodeed = json.decode(settings_content) or {}
@@ -86,11 +87,8 @@ for i, argValue in ipairs(args) do
 
 		saveConfig(projectPaths)
 		os.exit(1)
-			elseif argValue == "set"  then
-					-- set a deaflut projectName 
-
-
-					
+	elseif argValue == "set" then
+		-- set a deaflut projectName
 	elseif argValue == "-add" or argValue == "-a" then
 		capturePath = true
 	elseif capturePath and not projectPath then
@@ -102,7 +100,7 @@ for i, argValue in ipairs(args) do
 		end
 		projectName = string.lower(parts[#parts])
 		if not capturePath and projectPaths[projectName] then
-			local open_command = { "code --new-window --goto", projectPaths[projectName] }
+			local open_command = { "code", projectPaths[projectName] }
 			os.execute(table.concat(open_command, " "))
 		end
 	end
@@ -114,7 +112,7 @@ if not projectName then
 end
 
 if projectPaths[projectName] then
-	local open_command = { "code --new-window --goto", projectPaths[projectName] }
+	local open_command = { "code", projectPaths[projectName] }
 	os.execute(table.concat(open_command, " "))
 	os.exit()
 elseif projectPath then

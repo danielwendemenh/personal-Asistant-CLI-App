@@ -15,8 +15,8 @@ if string.lower(state) ~= "true" and string.lower(state) ~= "false" then
     os.exit(1)
 end
 
--- Build and execute the mongo shell command
-local mongoCommand = 'mongo ' .. MONGO_URI .. ' --eval "db.devices.update({}, { $set: { visible: ' .. state .. ' } }, { multi: true })"'
+-- Build and execute the mongosh  shell command
+local mongoCommand = 'mongosh  ' .. MONGO_URI .. ' --eval "db.devices.update({}, { $set: { visible: ' .. state .. ' } }, { multi: true })"'
 os.execute(mongoCommand)
 
 print("Devices updated successfully.")

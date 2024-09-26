@@ -7,7 +7,7 @@ if string.lower(answer) ~= "yes" and string.lower(answer) ~= "y" then
     os.exit(1)
 end
 
-local mongoCommand = 'mongo "' .. MONGO_URI .. '" --eval "var result = db.dropDatabase(); if (result) {\'Command executed successfully.\'  } else { print(\'Failed to execute the command..\'); }"'
+local mongoCommand = 'mongosh  "' .. MONGO_URI .. '" --eval "var result = db.dropDatabase(); if (result) {\'Command executed successfully.\'  } else { print(\'Failed to execute the command..\'); }"'
 local escapedMongoCommand = '"' .. mongoCommand:gsub('"', '\\"') .. '"'
 os.execute(escapedMongoCommand)
 os.execute(mongoCommand)
