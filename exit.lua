@@ -1,2 +1,1 @@
-
-os.execute("taskkill /F /IM cmd.exe /T")
+pkill -f "bash"

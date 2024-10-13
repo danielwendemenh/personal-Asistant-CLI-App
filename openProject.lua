@@ -1,4 +1,5 @@
-local json = require("json")
+local json = require("cjson")
+
 
 local function logTable(data)
     print(json.encode(data))
