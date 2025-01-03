@@ -9,5 +9,5 @@ elif [ "$1" == "uninstall" ]; then
     ./uninstall.sh
 else
     # Execute the Lua script with all arguments
-    lua /home/daniel/Dev/Personal/personalAsistantCLI/personalAssistant.lua "$@"
+    lua /home/daniel/Desktop/personalAsistantCLI/personalAssistant.lua "$@"
 fi
