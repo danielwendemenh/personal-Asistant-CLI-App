@@ -1,0 +1,14 @@
+{
+  "client": {
+    "status": "running",
+    "startTime": "2024-12-20 09:21:00",
+    "projectPath": "C:\\Users\\DanielWendemeneh\\Desktop\\Albarius\\new-client\\",
+    "projectName": "client"
+  },
+  "server": {
+    "status": "running",
+    "startTime": "2024-12-20 09:21:00",
+    "projectPath": "C:\\Users\\DanielWendemeneh\\Desktop\\Albarius\\server",
+    "projectName": "server"
+  }
+}
