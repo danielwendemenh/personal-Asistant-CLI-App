@@ -2,119 +2,97 @@ local json = require("json");
 local settingsFile = "app_settings.json";
 local keyToRetrieve = "projects-paths";
 local sep = package.config:sub(1, 1);
-local function logTable(data)
-	print(json.encode(data));
+local function getAbsolutePath()
+	return arg[0]:match("^(.*[\\/])") or "";
 end;
-local settingsFile = "app_settings.json";
-local keyToRetrieve = "projects-paths";
-local function loadConfig()
-	local absolutePath = arg[0]:match("^(.*[//])") or "";
-	local settings = io.open(absolutePath .. "/" .. settingsFile, "r");
-	if settings then
-		local settings_content = settings:read("*a");
-		local settingsDecoded = json.decode(settings_content) or {};
-		settings:close();
-		return settingsDecoded[keyToRetrieve];
+local function readConfig()
+	local absolutePath = getAbsolutePath();
+	local filePath = absolutePath .. sep .. settingsFile;
+	local file = io.open(filePath, "r");
+	if file then
+		local content = file:read("*a");
+		file:close();
+		return json.decode(content) or {};
+	else
+		print("Error: Unable to open settings file at path:", filePath);
+		return {};
 	end;
-	return {};
 end;
-local function deleteAllLines(filePath)
+local function writeConfig(config)
+	local absolutePath = getAbsolutePath();
+	local filePath = absolutePath .. sep .. settingsFile;
 	local file = io.open(filePath, "w");
 	if file then
+		file:write(json.encode(config));
 		file:close();
 	else
-		print("Error: Unable to open file for writing.");
+		print("Error: Unable to write to settings file at path:", filePath);
 	end;
 end;
-local function saveConfig(config)
-	local absolutePath = arg[0]:match("^(.*[//])") or "";
-	local settings = io.open(absolutePath .. "/" .. settingsFile, "r+");
-	if settings then
-		local settings_content = settings:read("*a");
-		settings:close();
-		deleteAllLines(absolutePath .. "/" .. settingsFile);
-		local settingsDecoded = json.decode(settings_content) or {};
-		settingsDecoded[keyToRetrieve] = config;
-		settings = io.open(absolutePath .. "/" .. settingsFile, "r+");
-		logTable(settingsDecoded);
-		settings:write(json.encode(settingsDecoded));
-		settings:close();
+local function listProjects()
+	local config = (readConfig())[keyToRetrieve] or {};
+	local count = 0;
+	for projectName, projectPath in pairs(config) do
+		count = count + 1;
+		print(count, "-", projectName, "->", projectPath);
+	end;
+	print("Total projects:", count);
+end;
+local function deleteProject(projectName)
+	local config = readConfig();
+	local projects = config[keyToRetrieve] or {};
+	if projects[projectName] then
+		projects[projectName] = nil;
+		config[keyToRetrieve] = projects;
+		writeConfig(config);
+		print("Project deleted successfully:", projectName);
+	else
+		print("Error: Project not found -", projectName);
+	end;
+end;
+local function addOrUpdateProject(projectName, projectPath)
+	local config = readConfig();
+	local projects = config[keyToRetrieve] or {};
+	projects[projectName] = projectPath;
+	config[keyToRetrieve] = projects;
+	writeConfig(config);
+	print("Project added/updated successfully:", projectName);
+end;
+local function openProject(projectName)
+	local projects = (readConfig())[keyToRetrieve] or {};
+	local projectPath = projects[projectName];
+	if projectPath then
+		local command = "code " .. projectPath;
+		os.execute(command);
+	else
+		print("Error: Project not found -", projectName);
 	end;
 end;
 local function printUsage()
-	print("Usage: pa open [-a <projectPath>] <projectName>");
-end;
-local function listProjects()
-	local projectPaths = loadConfig();
-	local count = 0;
-	for projectName, projectPath in pairs(projectPaths) do
-		count = count + 1;
-		print(count, "", projectName, "", projectPath);
-	end;
-	print("total: ", count);
+	print("Usage: pa [-list | -add <projectPath> <projectName> | -d <projectName> | open <projectName>]");
 end;
 local args = {
 	...
 };
-local projectPaths = loadConfig();
-local projectPath;
-local projectName;
-local capturePath = false;
-local capturePojectNameToDelete = false;
-for i, argValue in ipairs(args) do
-	if argValue == "-list" or argValue == "-l" then
-		listProjects();
-		os.exit(1);
-	elseif argValue == "-d" then
-		capturePojectNameToDelete = true;
-	elseif capturePojectNameToDelete and (not projectName) then
-		projectName = string.lower(argValue);
-		local selectedProjects = {};
-		local updatedConfig = {};
-		for key, value in pairs(projectPaths) do
-			if key ~= projectName then
-				updatedConfig[key] = value;
-			end;
-		end;
-		projectPaths = updatedConfig;
-		saveConfig(projectPaths);
-		os.exit(1);
-	elseif argValue == "set" then
-	elseif argValue == "-add" or argValue == "-a" then
-		capturePath = true;
-	elseif capturePath and (not projectPath) then
-		projectPath = argValue;
-	elseif argValue ~= "open" then
-		local parts = {};
-		for part in argValue:gmatch("[^,]+") do
-			table.insert(parts, part);
-		end;
-		projectName = string.lower(parts[#parts]);
-		if not capturePath and projectPaths[projectName] then
-			local open_command = {
-				"code --new-window --goto",
-				projectPaths[projectName]
-			};
-			os.execute(table.concat(open_command, " "));
-		end;
-	end;
-end;
-if not projectName then
+if #args == 0 then
 	printUsage();
 	os.exit(1);
 end;
-if projectPaths[projectName] then
-	local open_command = {
-		"code --new-window --goto",
-		projectPaths[projectName]
-	};
-	os.execute(table.concat(open_command, " "));
-	os.exit();
-elseif projectPath then
-	projectPaths[projectName] = projectPath;
-	saveConfig(projectPaths);
-	print("Projects added successfully.");
-	os.exit();
+local command = args[1];
+local action = args[2];
+print("Args:", action, command);
+if action == "-list" or action == "-l" then
+	listProjects();
+elseif action == "-d" and args[3] then
+	deleteProject(args[3]:lower());
+elseif action == "-add" or action == "-a" then
+	if args[3] and args[4] then
+		addOrUpdateProject(args[4]:lower(), args[3]);
+	else
+		print("Error: Missing project path or name for add command.");
+	end;
+elseif command == "open" and action then
+	openProject(action:lower());
 else
-	print("Error: Project not found -", projectName);
+	printUsage();
 end;
