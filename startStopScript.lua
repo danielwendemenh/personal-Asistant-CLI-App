@@ -1,18 +1,15 @@
-local socket = require("socket");
 local settingsFile = "app_settings.json";
 local ScriptKeys = "start-scripts";
 local ProjectsKeys = "projects-paths";
 local json = require("json");
 local activeProcesses = {};
 local settingsCache = nil;
-local shouldExit = false;
-local function signalHandler()
-	shouldExit = true;
-end;
+
 pcall(function()
 	local posix = require("posix");
 	posix.signal(posix.SIGINT, signalHandler);
 end);
+
 local function loadSettings()
 	if not settingsCache then
 		local absolutePath = arg[0]:match("^(.*[\\/])") or "";
@@ -32,6 +29,7 @@ local function loadSettings()
 	end;
 	return settingsCache;
 end;
+
 local function saveActiveProcesses()
 	local absolutePath = arg[0]:match("^(.*[\\/])") or "";
 	local file = io.open(absolutePath .. "active_processes.json", "w");
@@ -42,6 +40,7 @@ local function saveActiveProcesses()
 		print("Failed to save active processes: " .. (err or "unknown error"));
 	end;
 end;
+
 local function determineCommand(fileName, runType)
 	local baseCommand = "yarn start";
 	local commands = {
@@ -57,6 +56,7 @@ local function determineCommand(fileName, runType)
 	};
 	return commands[fileName] and commands[fileName][runType] or commands.default[runType] or baseCommand;
 end;
+
 local function startProcess(app, runType)
 	local appConfig = (loadSettings())[ScriptKeys] and (loadSettings())[ScriptKeys][app];
 	if not appConfig then
@@ -83,6 +83,7 @@ local function startProcess(app, runType)
 	end;
 	saveActiveProcesses();
 end;
+
 local function processCommand(command, fileName, runType)
 	local validCommands = {
 		start = true,
@@ -130,4 +131,5 @@ end;
 local command = (arg[1] or ""):lower();
 local fileName = arg[2];
 local runType = arg[3] or "default";
+
 processCommand(command, fileName, runType);
