@@ -16,13 +16,13 @@ local function organizeFiles(directory)
     end
     for file in lfs.dir(directory) do
         if file ~= "." and file ~= ".."   then
-            local filepath = directory .. "\\" .. file
+            local filepath = directory .. "/" .. file
             local mode = lfs.attributes(filepath, "mode")
             if mode == "file" then
                 local extension = string.match(file, "%.([^%.]+)$")
                 if extension and not extension== 'gitignore'and not extension == 'json'  then
                     local folderName = string.lower(extension) .. "_files"
-                    local folderPath = directory .. "\\" .. folderName
+                    local folderPath = directory .. "/" .. folderName
                     local mode = lfs.attributes(folderPath, "mode")
                     if mode == "directory" then
                     createdFolders[folderPath] = true
@@ -33,7 +33,7 @@ local function organizeFiles(directory)
                             createdFolders[folderPath] = true
                         end
                     end
-                    os.rename(filepath, folderPath .. "\\" .. file)
+                    os.rename(filepath, folderPath .. "/" .. file)
                 
                 end
             elseif mode == "directory" then
@@ -61,13 +61,13 @@ local function organizeFiles2(directory)
     end
     for file in lfs.dir(directory) do
         if file ~= "." and file ~= ".." then
-            local filepath = directory .. "\\" .. file
+            local filepath = directory .. "/" .. file
             local mode = lfs.attributes(filepath, "mode")
             if mode == "file" then
                 local extension = string.match(file, "%.([^%.]+)$")
                 if extension and not (extension == 'gitignore' or extension == 'json') then
                     local folderName = string.lower(extension) .. "_files"
-                    local folderPath = directory .. "\\" .. folderName
+                    local folderPath = directory .. "/" .. folderName
                     local mode = lfs.attributes(folderPath, "mode")
                     if mode == "directory" then
                         createdFolders[folderPath] = true
@@ -78,7 +78,7 @@ local function organizeFiles2(directory)
                             createdFolders[folderPath] = true
                         end
                     end
-                    os.rename(filepath, folderPath .. "\\" .. file)
+                    os.rename(filepath, folderPath .. "/" .. file)
                 end
             elseif mode == "directory" then
                 organizeFiles(filepath)

@@ -6,7 +6,7 @@ if not folderToFind then
 end
 
 -- Check if the folder exists
-local folderPath = "C:\\Users\\Daniel\\" .. folderToFind
+local folderPath = "C:/Users/Daniel/" .. folderToFind
 local cmdCommand = "explorer " .. folderPath
 
 local fileAttributes = io.popen("dir " .. folderPath):read("*all")
