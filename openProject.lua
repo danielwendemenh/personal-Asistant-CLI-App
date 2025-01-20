@@ -80,7 +80,6 @@ if #args == 0 then
 end;
 local command = args[1];
 local action = args[2];
-print("Args:", action, command);
 if action == "-list" or action == "-l" then
 	listProjects();
 elseif action == "-d" and args[3] then
