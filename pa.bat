@@ -1,10 +1,16 @@
-
 @echo off
+setlocal
+
+:: Get the directory of the batch script
+set "DIRNAME=%~dp0"
+
 if "%1"=="install" (
-    call install.bat
+    call "%DIRNAME%install.bat"
 ) else if "%1"=="uninstall" (
-    call uninstall.bat
+    call "%DIRNAME%uninstall.bat"
 ) else (
-    
-    lua C:\Users\Daniel\Desktop\personal\personalAsistantCLI\personalAssistant.lua %*
+    echo (%DIRNAME%)
+    lua "%DIRNAME%personalAssistant.lua" %*
 )
+
+endlocal

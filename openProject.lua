@@ -7,7 +7,7 @@ local function getAbsolutePath()
 end;
 local function readConfig()
 	local absolutePath = getAbsolutePath();
-	local filePath = absolutePath .. sep .. settingsFile;
+	local filePath = absolutePath .. settingsFile;
 	local file = io.open(filePath, "r");
 	if file then
 		local content = file:read("*a");
@@ -20,7 +20,7 @@ local function readConfig()
 end;
 local function writeConfig(config)
 	local absolutePath = getAbsolutePath();
-	local filePath = absolutePath .. sep .. settingsFile;
+	local filePath = absolutePath .. settingsFile;
 	local file = io.open(filePath, "w");
 	if file then
 		file:write(json.encode(config));
