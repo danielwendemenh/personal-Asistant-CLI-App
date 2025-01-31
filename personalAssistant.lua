@@ -100,6 +100,8 @@ elseif command == "uninstall" then
 	executeScript("uninstall.lua");
 elseif command == "swap" then
 	executeScript("swapServer.lua");
+elseif command == "create" then
+	executeScript("createApp.lua");
 elseif command == "upload" then
 	executeScript("uploadfile.lua");
 elseif command == "purge" then
