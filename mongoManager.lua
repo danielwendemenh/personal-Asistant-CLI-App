@@ -10,7 +10,7 @@ local backupsFolder = scriptDirectory .. "DB_backups" .. "/";
 local lfs = require("lfs");
 local action = args[2];
 local backup_name = args[3];
-local json = require("json");
+local json = require("sonar");
 if not lfs.attributes(backupsFolder) then
 	lfs.mkdir(backupsFolder);
 end;

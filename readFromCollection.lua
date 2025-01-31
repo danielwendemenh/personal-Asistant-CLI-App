@@ -1,4 +1,4 @@
-local json = require("json");
+local json = require("simplejson");
 local MONGO_URI = "mongodb://localhost:27017/AlbariusDB";
 local COMMAND = arg[1] or "get";
 local COLLECTION_NAME = arg[2] or "devices";

@@ -81,7 +81,18 @@ local function executeScript(scriptName, additionalArgs)
 	local command = {
 		"lua",
 		commandFilePath,
-		unpack(additionalArgs or {})
+		table.unpack(additionalArgs or {})
+	};
+	os.execute(table.concat(command, " "));
+end;
+local function executeScriptJs(scriptName, additionalArgs)
+	local scriptPath = (debug.getinfo(1, "S")).source:sub(2);
+	local scriptDirectory = scriptPath:match("(.*[\\/])");
+	local commandFilePath = scriptDirectory .. scriptName;
+	local command = {
+		"node",
+		commandFilePath,
+		table.unpack(additionalArgs or {})
 	};
 	os.execute(table.concat(command, " "));
 end;
@@ -101,7 +112,7 @@ elseif command == "uninstall" then
 elseif command == "swap" then
 	executeScript("swapServer.lua");
 elseif command == "create" then
-	executeScript("createApp.lua");
+	executeScriptJs("createApp.js");
 elseif command == "upload" then
 	executeScript("uploadfile.lua");
 elseif command == "purge" then

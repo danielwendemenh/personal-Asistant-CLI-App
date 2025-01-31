@@ -10,13 +10,14 @@
     "type": "git",
     "url": "git+https://github.com/danielWende/bacth_files.git"
   },
-  "author": "",
+  "author": "danielwendemeneh <danielw69w@gamil.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/danielWende/bacth_files/issues"
   },
   "homepage": "https://github.com/danielWende/bacth_files#readme",
-  "devDependencies": {
-    "cypress": "^13.6.4"
+  "dependencies": {
+    "chalk": "4",
+    "keypress": "^0.2.1"
   }
 }
