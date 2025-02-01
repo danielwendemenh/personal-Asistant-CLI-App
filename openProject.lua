@@ -1,7 +1,6 @@
 local json = require("sonar");
 local settingsFile = "app_settings.json";
 local keyToRetrieve = "projects-paths";
-local sep = package.config:sub(1, 1);
 local function getAbsolutePath()
 	return arg[0]:match("^(.*[\\/])") or "";
 end;

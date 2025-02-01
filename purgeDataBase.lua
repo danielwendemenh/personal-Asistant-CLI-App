@@ -1,4 +1,3 @@
-local json = require("simplejson");
 local MONGO_URI = "mongodb://127.0.0.1:27017/AlbariusDB";
 print("Are you sure you want to delete the database? (yes/no)");
 local answer = io.read();
