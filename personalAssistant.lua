@@ -1,6 +1,4 @@
-package.path = package.path .. ";C:/Users/DanielWendemeneh/AppData/Roaming/luarocks/share/lua/5.4/?.lua";
-package.cpath = package.cpath .. ";C:/Users/DanielWendemeneh/AppData/Roaming/luarocks/lib/lua/5.4/?.dll";
-local json = require("sonar");
+local json = require("dkjson") 
 local command = (arg[1] or ""):lower();
 local args = {
 	...
