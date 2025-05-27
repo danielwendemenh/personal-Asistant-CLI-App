@@ -1,23 +1,12 @@
 {
-  "name": "personal_assistant",
+  "name": "pa",
   "version": "1.0.0",
-  "description": "Personal Assistant CLI App",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "bin": {
+    "pa": "./pa.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/danielWende/bacth_files.git"
-  },
-  "author": "danielwendemeneh <danielw69w@gamil.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/danielWende/bacth_files/issues"
-  },
-  "homepage": "https://github.com/danielWende/bacth_files#readme",
+  "scripts": {},
   "dependencies": {
-    "chalk": "4",
-    "keypress": "^0.2.1"
+    "commander": "^11.0.0",
+    "mongodb": "^6.16.0"
   }
 }
