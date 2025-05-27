@@ -1,4 +1,4 @@
-local json = require("sonar");
+local json = require("dkjson") 
 local settingsFile = "app_settings.json";
 local keyToRetrieve = "projects-paths";
 local function getAbsolutePath()

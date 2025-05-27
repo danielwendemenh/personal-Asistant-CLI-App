@@ -1,3 +1,4 @@
+local json = require("dkjson");
 local command = (arg[1] or ""):lower();
 local args = {
 	...
