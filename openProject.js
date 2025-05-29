@@ -72,7 +72,7 @@ function printUsage() {
   } else if (action === "-d") {
     await deleteProject(projectPath.toLowerCase());
   } else if (command === "open" && action) {
-    await openProject(action.toLowerCase());
+    await openProject(action);
   } else {
     printUsage();
     process.exit(1);
