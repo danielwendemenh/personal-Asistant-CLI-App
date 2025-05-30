@@ -9,7 +9,7 @@ A Lua-based command-line tool designed for file monitoring, project management, 
 1. Clone the repository:
 
    ```
-   git clone https://github.com/Albarius-LTD/PerosnalAssistant-CLI
+   git clone https://github.com//PerosnalAssistant-CLI
 
    ```
 
