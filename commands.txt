@@ -1,4 +1,0 @@
-cd /Temp/ 
-tar -xvzf GlobalSearxhWithFetcher.tar.gz
-cp -rf Albarius /opt/
-pm2 restart all
