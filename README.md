@@ -6,12 +6,7 @@ A Lua-based command-line tool designed for file monitoring, project management, 
 
 ## Installation
 
-1. Clone the repository:
-
-   ```
-   git clone https://github.com//PerosnalAssistant-CLI
-
-   ```
+1. Clone the repository
 
 ## Add the cloned directory to the system environment variable.
 
